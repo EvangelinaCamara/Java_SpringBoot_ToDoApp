@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ToDoTaskRepository extends JpaRepository<ToDoTask, Long> {
-    List<ToDoTask> searchByStatusContainingIgnoreCase(String content);
+    List<ToDoTask> searchByNameContainingIgnoreCase(String content);
 
     List<ToDoTask> findAllByCategory(Category category);
 

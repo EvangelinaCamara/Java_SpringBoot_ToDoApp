@@ -45,7 +45,7 @@ public class ToDoTaskService {
     }
 
     public List<ToDoTask> search(String content) {
-        return todotaskRepo.searchByStatusContainingIgnoreCase(content);
+        return todotaskRepo.searchByNameContainingIgnoreCase(content);
     }
 
     public List<ToDoTask> search(Category category) {
