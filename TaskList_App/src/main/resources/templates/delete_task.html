@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+  <title>Delete Task</title>
+</head>
+<body>
+<header>
+  <div th:insert="~{nav :: navbar}"></div>
+</header>
+<div class="container">
+  <main role="main" class="pb-3">
+    <h1>Delete</h1>
+    <h3>Are you sure you want to cancel this?</h3>
+    <h4>Task</h4>
+    <hr/>
+    <dl class="row" th:object="${task}">
+
+      <dt class="col-sm-2">
+        Title
+      </dt>
+      <dd class="col-sm-10">
+        <span th:text="*{name}"/>
+      </dd>
+      <dt class="col-sm-2">
+        Comment
+      </dt>
+      <dd class="col-sm-10">
+        <span th:text="*{description}"/>
+      </dd>
+    </dl>
+
+    <form th:action="@{'/deleteTask/' + ${id}}" method="post" th:object="${task}">
+      <input type="hidden" th:field="*{id}">
+      <input type="submit" value="Cancel" class="btn btn-primary"/>
+    </form>
+    <div>
+      <a th:href="@{/tasks}">Go Back</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

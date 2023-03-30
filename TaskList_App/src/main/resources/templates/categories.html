@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <title>Categories</title>
+</head>
+<body>
+<header>
+    <div th:insert="~{nav :: navbar}"></div>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h2>Categories</h2>
+        <a th:href="@{/createCategory}">Create Category</a>
+        <table class="table" th:unless="${categories == null}">
+            <thead>
+            <tr>
+                <th>Title</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category: ${categories}">
+                <td>
+                    <span th:text="${category.name}"></span>
+                </td>
+                <td>
+                    <a th:href="@{/category/edit/{id}(id=${category.id})}">Edit</a> |
+                    <a th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${categories == null}">
+            <p>No Categories Found</p>
+            <p>Create one</p>
+        </div>
+        <div>
+            <a th:href="@{/}">Go Back</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <title>Tasks</title>
+</head>
+<body>
+<header>
+  <div th:insert="~{nav :: navbar}"></div>
+</header>
+<div class="container">
+  <main role="main" class="pb-3">
+
+    <table class="table" th:unless="${categories == null}">
+      <tbody>
+      <tr>
+        <td th:each="category: ${categories}">
+          <a th:text="${category.name}"
+             th:href="@{/tasks/category/{id}(id=${category.id})}"></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <hr/>
+
+
+      <div>
+        <form th:action="@{/tasks/search}" method="post" > Search Criteria: <input type="text" name="search" /><br>
+          <div class="form-group">
+          <input type="submit" value="Search" class="btn btn-primary"/>
+          <a th:href="@{/}" class="btn btn-primary">Clear</a>
+          </div>
+        </form>
+
+      </div>
+      <h2>Tasks</h2>
+      <a th:href="@{/createTask}">Create Task</a>
+      <table class="table" th:unless="${tasks == null}">
+        <thead>
+        <tr>
+          <th>Category</th>
+          <th>Title</th>
+          <th>Comment</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task: ${tasks}">
+          <td>
+                     <span th:text="${task.category.name}"
+                           th:unless="${task.category == null}"></span>
+            <span th:if="${task.category == null}">No Category</span>
+          </td>
+          <td>
+            <span th:text="${task.name}"></span>
+          </td>
+          <td>
+            <span th:text="${task.description}"></span>
+          </td>
+          <td>
+            <span th:text="${task.status}"></span>
+          </td>
+          <td>
+            <a th:href="@{/task/edit/{id}(id=${task.id})}">Edit</a> |
+            <a th:href="@{/task/delete/{id}(id=${task.id})}">Mark As Done</a>
+          </td>
+        </tr>
+        </c:forEach>
+        </tbody>
+      </table>
+
+      <div th:if="${tasks == null}">
+        <p>No Tasks Found</p>
+      </div>
+      <div>
+        <a th:href="@{/}">Go Back</a>
+      </div>
+
+  </main>
+</div>
+</body>
+</html>

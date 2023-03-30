@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <title>Task Creation</title>
+</head>
+<body>
+<header>
+    <div th:insert="~{nav :: navbar}"></div>
+</header><div class="container">
+<main role="main" class="pb-3">
+    <h3>Create Task</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <form th:action="@{/createTask}" method="post" th:object="${task}">
+                <div class="form-group">
+                <label th:field="*{name}" for="name">Choose a Category:</label>
+                <select class="form-control" th:field="*{category}">
+                    <option value="0">select option</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label th:field="*{name}" for="name">Title:</label>
+                    <input th:field="*{name}" id="name">
+                    <div class="alert alert-warning"  th:errors="*{name}"></div>
+                </div>
+                <div class="form-group">
+                    <label th:field="*{description}" for="name">Comment:</label>
+                    <input th:field="*{description}" id="description">
+                    <div class="alert alert-warning"  th:errors="*{description}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Status: </label>
+                    <select class="form-control" id="status" name="status">
+                        <option th:value="Pending" th:text="To-Do"> </option>
+                        <option th:value="Approved" th:text="In-Process"> </option>
+                        <option th:value="Denied" th:text="Complete"> </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a th:href="@{/tasks.html}">Go Back</a>
+    </div>
+</main>
+</div>
+</body>
+</html>
